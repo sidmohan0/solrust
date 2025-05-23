@@ -1,0 +1,95 @@
+# SolVolumeBot Research Configuration
+
+# Data Sources
+data_sources:
+  # Primary Solana memecoin volume data
+  birdeye:
+    base_url: "https://public-api.birdeye.so"
+    api_key: ""  # Set via environment variable BIRDEYE_API_KEY
+    rate_limit: 100  # requests per minute
+    
+  # Fallback volume data
+  dexscreener:
+    base_url: "https://api.dexscreener.com"
+    rate_limit: 60  # requests per minute
+    
+  # SOL price data  
+  binance:
+    base_url: "https://api.binance.com/api/v3"
+    rate_limit: 1200  # requests per minute
+    
+  # Enhanced exchange data
+  coingecko:
+    base_url: "https://api.coingecko.com/api/v3"
+    api_key: ""  # Set via environment variable COINGECKO_API_KEY
+    rate_limit: 15  # requests per minute (free tier)
+
+# Trading Strategy Parameters
+strategy:
+  # SOL price support band (USD)
+  support_band:
+    min: 160.0
+    max: 162.0
+    
+  # Memecoin volume thresholds
+  memecoin:
+    volume_drop_threshold: 0.30  # 30% drop trigger
+    lookback_days: 1
+    
+  # Technical analysis
+  rsi:
+    period: 14
+    oversold_threshold: 45
+    
+  # Risk management
+  risk:
+    max_trade_risk: 0.05  # 5% of portfolio
+    stop_loss: 155.0  # USD
+    take_profit_1: 0.02  # 2% gain
+    take_profit_2: 0.06  # 6% gain
+
+# Data Collection
+data:
+  # Historical data storage
+  storage:
+    format: "parquet"  # parquet, csv, sqlite
+    directory: "data"
+    compress: true
+    
+  # Collection intervals
+  intervals:
+    sol_candles: 300  # 5 minutes
+    memecoin_volume: 3600  # 1 hour
+    market_scan: 1800  # 30 minutes
+    
+  # Data retention
+  retention:
+    raw_data_days: 30
+    processed_data_days: 365
+    backtest_data_days: 730
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/solvolume_bot.log"
+  max_size_mb: 100
+  backup_count: 5
+  console: true
+
+# Monitoring
+monitoring:
+  alerts:
+    enabled: true
+    methods: ["console", "file"]  # Add "telegram", "slack" later
+  
+  # Health checks
+  health:
+    api_timeout: 10  # seconds
+    max_consecutive_failures: 3
+    
+# Development
+development:
+  mock_data: false
+  verbose: false
+  test_mode: false

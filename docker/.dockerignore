@@ -1,0 +1,31 @@
+# Build artifacts
+engine/target/
+engine/Cargo.lock
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+notes/
+research/
+README.md
+
+# Config and secrets
+.env
+config/*.toml
+!config/example.toml
+
+# Logs
+*.log
+logs/

@@ -1,0 +1,49 @@
+[package]
+name = "sol_volume_bot"
+version = "0.1.0"
+edition = "2021"
+authors = ["Claude Code Team"]
+description = "Low-latency Solana memecoin volume trading bot"
+
+[dependencies]
+# Async runtime
+tokio = { version = "1.25", features = ["full"] }
+futures = "0.3"
+tokio-util = "0.7"
+
+# WebSocket
+tokio-tungstenite = "0.20"
+
+# HTTP client
+reqwest = { version = "0.11", features = ["json"] }
+
+# Configuration
+serde = { version = "1.0", features = ["derive"] }
+toml = "0.8"
+
+# Persistence  
+rusqlite = { version = "0.29", features = ["bundled"] }
+
+# Metrics and logging
+prometheus-client = "0.21"
+axum = "0.7"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["json"] }
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+[dev-dependencies]
+proptest = "1.0"
+criterion = "0.5"
+
+[[bin]]
+name = "sol_volume_bot"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
